@@ -7,17 +7,15 @@ function getPost(req, res){
 }
 
 function addPost(req, res){
-    if(req.body.titulo == '' || req.body.contenido == '' ||req.body.idcategoria == ''  ){
-        res.status(400).send({ code: 400, message: "Completa todos los campos" });
-    }else{
-        Post.create({
-            titulo: req.body.titulo,
-            contenido: req.body.contenido,
-            idcategoria: req.body.idcategoria
-        }).then( post => {
-            res.json(post);
-        });
-    }
+    Post.create({
+        titulo: req.body.titulo,
+        contenido: req.body.contenido,
+        idcategoria: req.body.idcategoria
+    }).then( post => {
+        res.json(post);
+    }).catch( err => {
+        res.json(err);
+    });
 }
 
 function getPosts(req, res){
@@ -43,21 +41,19 @@ function getPostscategoria(req, res){
 }
 
 function updatePost(req, res){
-    if(req.body.titulo == '' || req.body.contenido == '' ||req.body.idcategoria == ''  ){
-        res.status(400).send({ code: 400, message: "Completa todos los campos" });
-    }else{
-        Post.update({
-            titulo: req.body.titulo,
-            contenido: req.body.contenido,
-            idcategoria: req.body.idcategoria
-        },{
-            where: {
-                id: req.params.id
-            }
-        }).then( result => {
-            res.json(result);
-        });
-    }
+    Post.update({
+        titulo: req.body.titulo,
+        contenido: req.body.contenido,
+        idcategoria: req.body.idcategoria
+    },{
+        where: {
+            id: req.params.id
+        }
+    }).then( result => {
+        res.json(result);
+    }).catch( err => {
+        res.json(err);
+    });
 }
 
 function deletePost(req, res){

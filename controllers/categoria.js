@@ -7,15 +7,13 @@ function getCategoria(req, res){
 }
 
 function addCategoria(req, res){
-    if(req.body.nombre == ''){
-        res.status(400).send({ code: 400, message: "Completa todos los campos" });
-    }else{
-        Categoria.create({
-            nombre: req.body.nombre
-        }).then( Categoria => {
-            res.json(Categoria);
-        });
-    }
+    Categoria.create({
+        nombre: req.body.nombre
+    }).then( Categoria => {
+        res.json(Categoria);
+    }).catch( err => {
+        res.json(err);
+    });
 }
 
 function getCategorias(req, res){
@@ -30,19 +28,17 @@ function getCategorias(req, res){
 }
 
 function updateCategoria(req, res){
-    if(req.body.nombre == ''){
-        res.status(400).send({ code: 400, message: "Completa todos los campos" });
-    }else{
-        Categoria.update({
-            nombre: req.body.nombre
-        },{
-            where: {
-                id: req.params.id
-            }
-        }).then( result => {
-            res.json(result);
-        });
-    }
+    Categoria.update({
+        nombre: req.body.nombre
+    },{
+        where: {
+            id: req.params.id
+        }
+    }).then( result => {
+        res.json(result);
+    }).catch( err => {
+        res.json(err);
+    });
 }
 
 function deleteCategoria(req, res){
